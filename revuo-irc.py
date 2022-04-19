@@ -43,7 +43,7 @@ def main():
     NewsFeed = feedparser.parse("https://revuo-xmr.com/atom.xml")
     entry = NewsFeed.entries[0]
 
-    msg = f"{entry['title']}. {entry['link']}"
+    msg = f"Revuo Monero. {entry['title']}. {entry['link']}"
     if last_msg != msg:
         data = {"msg": msg}
         # Store data (serialize)
