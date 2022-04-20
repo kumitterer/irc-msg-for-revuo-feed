@@ -8,18 +8,21 @@ import json
 import pprint
 import pickle
 
+botnick = b"aaaaa"
+botpass b"bbbbbb"
+
 def send_msg(channels,msg):
     server = "irc.libera.chat"
     #server = "irc.freenode.net"
     #this function will hang while waiting for someone to say hello
-    botnick = b"fyi"
     irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #defines the socket
     print("connecting to:"+server)
     irc.connect((server, 6667))                                                         #connects to the server
     irc.send(b"USER "+ botnick + b" "+ botnick + b" "+ botnick + b" :hello\n") #user authentication
     irc.send(b"NICK "+ botnick +b"\n")                            #sets nick
-    irc.send(b"PRIVMSG nickserv :iNOOPE\r\n")    #auth
-    
+    time.sleep(3)
+    irc.send(b"PRIVMSG nickserv :IDENTIFY {botnick} {pass}")
+    time.sleep(3)
     for channel in channels:
         irc.send(b"JOIN "+ channel +b"\n")  
         while 1:
