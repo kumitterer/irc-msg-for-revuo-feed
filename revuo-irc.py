@@ -8,6 +8,7 @@ import json
 import pprint
 import pickle
 import tweepy 
+import ssl
 
 botnick = b"revuoxmr"
 botpass = b"hunter2"
@@ -28,7 +29,9 @@ def send_msg(channels,msg):
     server = "irc.libera.chat"
     #server = "irc.freenode.net"
     #this function will hang while waiting for someone to say hello
-    irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #defines the socket
+    ctx = ssl.create_default_context(purpose=ssl.Purpose.CLIENT_AUTH)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    irc = ctx.wrap_socket(sock) 
     print("connecting to:"+server)
     irc.connect((server, 6697)) #connects to the server
     irc.send(b"USER "+ botnick + b" "+ botnick + b" "+ botnick + b" :hello\n") #user authentication
