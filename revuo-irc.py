@@ -32,7 +32,7 @@ def send_msg(msg):
     data = {
         'message': msg,
         'password': webhook_password,
-        'broadcast': "true"
+        'broadcast': True
     }
     r = requests.post(webhook_endpoint, data=json.dumps(data), headers=headers)
 
@@ -83,7 +83,6 @@ def main():
         # Load data (deserialize)
         print("New")
         msg = bytes(msg, 'ascii')
-        #send_msg(chanlist, msg)
         send_tweet(tweet)
         send_msg(msg)
 
