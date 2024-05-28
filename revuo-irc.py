@@ -2,7 +2,6 @@ import random
 import feedparser
 import pprint 
 import os
-import socket
 import time
 import json
 import pprint
@@ -10,8 +9,9 @@ import pickle
 import tweepy
 import ssl
 
-botnick = b"revuoxmr"
-botpass = b"hunter2!"
+webhook_endpoint="http://theurl dot com :4444 /message"
+webhook_password=
+
 api_key= ""
 api_secret_key = ""
 
@@ -26,38 +26,15 @@ access_token = ""
 access_token_secret = ""
 url_preview = 1
 
-def send_msg(chan,msg):
-    global botnick, botpass
-    server = "irc.libera.chat"
-    #server = "irc.freenode.net"
-    ctx = ssl.create_default_context(purpose=ssl.Purpose.CLIENT_AUTH)
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    irc = ctx.wrap_socket(sock) 
-    print("connecting to:"+server)
-    irc.connect((server, 6697))                                                         #connects to the server
-    irc.send(b"USER "+ botnick + b" "+ botnick + b" "+ botnick + b" :hello\n") #user authentication
-    irc.send(b"NICK "+ botnick +b"\n")                            #sets nick
-    #time.sleep(3)
-    irc.send(b"PRIVMSG NICKSERV :IDENTIFY " + botnick + b" " + botpass + b"\n")
-    #time.sleep(3)
-    ddos = 0
-    text = b""
-    irc.send(b"JOIN " + chan + b"\n")  
-    #time.sleep(5)
-    while 1:
-        ddos += 1
-        if ddos > 10000:
-            break
-        text+=irc.recv(2040) 
-        print(text)
-        if irc.recv(2040).find(b'PING') != -1:                          #check if 'PING' is found
-            irc.send(b'PONG ' + irc.recv(2040).split()[1] + b'\r\n') #returnes 'PONG' back to the server (prevents pinging out!)
-        if b"[m]" in text or b"now logged in as" in text or b"||" in text or b"binaryFate" in text or b"pools" in text: # or b"You are now identified" in text:
-            irc.send(b"PRIVMSG " + chan + b" :" + msg + b"\n")
-            print(b"PRIVMSG " + chan + b" :" + msg + b"\n")
-            #print("send msg")
-            print("FULL SEND")
-            break
+def send_msg(msg):
+    global webhook_password, webhook_endpoint
+    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    data = {
+        'message': msg,
+        'password': webhook_password,
+        'broadcast': True
+    }
+    r = requests.post(webhook_endpoint, data=json.dumps(data), headers=headers)
 
 def send_tweet(tweet):
 	global consumer_key, consumer_secret, access_token, access_token_secret
@@ -92,7 +69,6 @@ def main():
     else:
         last_msg = "~"
     chanlist = [b"#monero-community", b"#monero", b"#monero-markets", b"#monero-pools"]
-    #chanlist = [b"#monero-pools"]
     NewsFeed = feedparser.parse("https://revuo-xmr.com/atom.xml")
     entry = NewsFeed.entries[0]
 
@@ -107,11 +83,8 @@ def main():
         # Load data (deserialize)
         print("New")
         msg = bytes(msg, 'ascii')
-        #send_msg(chanlist, msg)
         send_tweet(tweet)
-        for chan in chanlist:
-            send_msg(chan,msg)
-            time.sleep(30)
+        send_msg(msg)
 
 if __name__ == "__main__":
     main()
