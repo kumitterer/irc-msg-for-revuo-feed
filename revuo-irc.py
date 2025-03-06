@@ -8,9 +8,14 @@ import pprint
 import pickle
 import tweepy
 import ssl
+import requests 
+import json
 
-webhook_endpoint="http://theurl dot com :4444 /message"
-webhook_password=
+webhook_endpoint="http://:8082/message"
+webhook_password=""
+
+rizon_webhook_endpoint="http://:8084/message"
+rizon_webhook_password=""
 
 api_key= ""
 api_secret_key = ""
@@ -24,10 +29,10 @@ consumer_key = ""
 consumer_secret = ""
 access_token = ""
 access_token_secret = ""
+
 url_preview = 1
 
-def send_msg(msg):
-    global webhook_password, webhook_endpoint
+def send_msg(msg,webhook_password,webhook_endpoint):
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
     data = {
         'message': msg,
@@ -62,6 +67,7 @@ def send_tweet(tweet):
 	    api.update_status(status = tweet, lat=loc_lat, long=loc_long, display_coordinates=1 )
 	'''
 def main():
+    global webhook_password, webhook_endpoint, rizon_webhook_endpoint, rizon_webhook_password
     if os.path.isfile("filename.pickle"):
         with open('filename.pickle', 'rb') as handle:
             unserialized_data = pickle.load(handle)
@@ -74,6 +80,7 @@ def main():
 
     msg = f"Revuo Monero {entry['title']}. {entry['link']}"
     tweet = f"We're pleased to share Revuo #Monero {entry['title']} is now available! {entry['link']}"
+    print(msg)
     if last_msg != msg:
         data = {"msg": msg}
         # Store data (serialize)
@@ -82,9 +89,10 @@ def main():
 
         # Load data (deserialize)
         print("New")
-        msg = bytes(msg, 'ascii')
+        #msg = bytes(msg, 'ascii')
+        #send_msg(chanlist, msg)
         send_tweet(tweet)
-        send_msg(msg)
-
+        send_msg(msg,webhook_password,webhook_endpoint)
+        send_msg(msg,rizon_webhook_password,rizon_webhook_endpoint)
 if __name__ == "__main__":
     main()
