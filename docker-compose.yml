@@ -3,15 +3,18 @@ services:
   irc-msg-for-revuo:
     build: .
     restart: unless-stopped
+    environment:
+      WMB_LIBERACHAT_URL: http://wmb-liberachat:8089
+      WMB_RIZON_URL: http://wmb-rizon:8089
 
   wmb-rizon:
     image: ghcr.io/cfindlayisme/wmb:latest
     restart: unless-stopped
     environment: 
-        IRC_SERVER: irc.rizon.net:6665
+      IRC_SERVER: irc.rizon.net:6665
 
   wmb-liberachat:
     image: ghcr.io/cfindlayisme/wmb:latest
     restart: unless-stopped
     environment: 
-        IRC_SERVER=irc.libera.chat:6665
+      IRC_SERVER: irc.libera.chat:6665

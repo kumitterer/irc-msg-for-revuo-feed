@@ -11,24 +11,23 @@ import ssl
 import requests 
 import json
 
-webhook_endpoint="http://:8082/message"
-webhook_password=""
+webhook_endpoint = os.environ['WMB_LIBERACHAT_URL']
+webhook_password = os.environ['WMB_LIBERACHAT_PASSWORD']
 
-rizon_webhook_endpoint="http://:8084/message"
-rizon_webhook_password=""
+rizon_webhook_endpoint = os.environ['WMB_RIZON_URL']
+rizon_webhook_password = os.environ['WMB_RIZON_PASSWORD']
 
-api_key= ""
-api_secret_key = ""
+api_key = os.environ['API_KEY']
+api_secret_key = os.environ['API_SECRET_KEY']
 
-loc_long = 55.4920
-loc_lat = -4.6796
-api_bearer = ""
+loc_long = int(os.environ['LOC_LON'])
+loc_lat = int(os.environ['LOC_LAT'])
+api_bearer = os.environ['API_BEARER']
 
-
-consumer_key = ""
-consumer_secret = ""
-access_token = ""
-access_token_secret = ""
+consumer_key = os.environ['CONSUMER_KEY']
+consumer_secret = os.environ['CONSUMER_SECRET']
+access_token = os.environ['ACCESS_TOKEN']
+access_token_secret = os.environ['ACCESS_TOKEN_SECRET']
 
 url_preview = 1
 
