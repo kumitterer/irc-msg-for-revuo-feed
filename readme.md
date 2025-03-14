@@ -1,4 +1,34 @@
-Sends a json packet to [WMB](https://github.com/cfindlayisme/wmb) instance. Tweets. And is also on Nostr, courtesy of Pluja's relay @ https://github.com/pluja/nerostr using https://github.com/Asone/nostrss
+# irc-msg-for-revuo-feed
+
+Sends a json packet to [WMB](https://github.com/cfindlayisme/wmb) instance. Tweets. And is also on Nostr, courtesy of Pluja's relay @ https://github.com/pluja/nerostr using https://github.com/Asone/nostrss.
+
+## Installation
+
+```sh
+cd /usr/local/src # or wherever
+sudo git clone https://github.com/rottenwheel/irc-msg-for-revuo-feed.git
+cd irc-msg-for-revuo-feed
+docker compose pull
+docker compose build
+```
+
+## Configuration
+
+Put your environment variables in `docker-compose.override.yml`, which won't be committed to VCS. 
+
+```sh
+sudo cp docker-compose.override.sample.yml docker-compose.override.yml
+sudo vim docker-compose.override.yml # Set your config here
+```
+
+## Running
+
+```sh
+docker compose up -d
+docker compose logs -f # For logging
+```
+
+## TODO: Move this junk to files?
 
 ### wmb config file
 ```

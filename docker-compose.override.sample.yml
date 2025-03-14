@@ -1,0 +1,30 @@
+  irc-msg-for-revuo:
+    environment: 
+      TZ: UTC
+
+  wmb-rizon:
+    environment: 
+      TZ: UTC
+      NICKSERV_PASSWORD: [REDACTED]
+      IRC_CHANNEL: #monero-pools
+      PASSWORD: rizon132
+      #OTHER_IRC_CHANNELS: 
+      #PORT: 8089
+      #NICKSERV_PASSWORD: 
+      #OTHER_IRC_CHANNELS: 
+      #SELF_MODE: 
+      #DBFILE: 
+
+  wmb-liberachat:
+    environment: 
+      TZ: UTC
+      IRC_NICK: revuoxmr
+      NICKSERV_PASSWORD: [REDACTED]
+      IRC_CHANNEL: #monero-community
+      OTHER_IRC_CHANNELS: #monero,#monero-markets,#monero-pools
+      PASSWORD: libera312
+      #PORT: 8089
+      #NICKSERV_PASSWORD: 
+      #OTHER_IRC_CHANNELS: 
+      #SELF_MODE: 
+      #DBFILE: 
