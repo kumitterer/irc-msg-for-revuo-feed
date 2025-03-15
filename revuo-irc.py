@@ -15,8 +15,8 @@ rizon_webhook_password = os.environ['WMB_RIZON_PASSWORD']
 api_key = os.environ['API_KEY']
 api_secret_key = os.environ['API_SECRET_KEY']
 
-loc_long = os.environ.get('LOC_LON')
-loc_lat = os.environ.get('LOC_LAT')
+#loc_long = os.environ.get('LOC_LON')
+#loc_lat = os.environ.get('LOC_LAT')
 
 api_bearer = os.environ['API_BEARER']
 
@@ -40,7 +40,7 @@ def send_msg(msg,webhook_password,webhook_endpoint):
 
 def send_tweet(tweet):
 	global consumer_key, consumer_secret, access_token, access_token_secret
-	global loc_long, loc_lat
+	#global loc_long, loc_lat
 
 	client = tweepy.Client(consumer_key=consumer_key,
 	                   consumer_secret=consumer_secret,
